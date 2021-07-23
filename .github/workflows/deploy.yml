@@ -42,6 +42,10 @@ jobs:
       - name: Deployment status to Discord
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 
+      - name: Deployment failure status
+        if: ${{ failure() }}
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
+
   test:
     needs: deploy
     name: "Test deployment"
@@ -53,3 +57,7 @@ jobs:
       - name: Run test for endpoints
         shell: bash
         run: test/test_endpoints.sh
+
+      - name: Test failure status
+        if: ${{ failure() }}
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Test Failed"
