@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - names: Check out Git repository
+      - name: Check out Git repository
         uses: actions/checkout@v2
 
       - name: Set up Python
