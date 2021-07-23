@@ -41,3 +41,15 @@ jobs:
 
       - name: Deployment status to Discord
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+
+  test:
+    needs: deploy
+    name: "Test deployment"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run test for endpoints
+        shell: bash
+        run: test/test_endpoints.sh
