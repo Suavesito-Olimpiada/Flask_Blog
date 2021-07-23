@@ -34,3 +34,7 @@ jobs:
           git reset --hard origin/master &&
           docker-compose stop &&
           docker-compose up -d --build'
+
+      - name: Print status of deployment
+        run: ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} &&
+          docker-compose ps'
